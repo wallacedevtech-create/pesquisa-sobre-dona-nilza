@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Quem era Dona Nilza?</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+font-family:Poppins,sans-serif;
+background:linear-gradient(rgba(255,248,248,.9),rgba(255,248,248,.9)),
+url('https://images.unsplash.com/photo-1468327768560-75b778cbb551?auto=format&fit=crop&w=1600&q=80');
+background-size:cover;background-attachment:fixed;padding:20px;color:#4d3b3b;
+}
+.container{max-width:1000px;margin:auto}
+.card{
+background:rgba(255,255,255,.22);
+backdrop-filter:blur(12px);
+border:1px solid rgba(255,255,255,.4);
+border-radius:24px;
+padding:30px;
+box-shadow:0 8px 30px rgba(0,0,0,.15);
+}
+.hero{text-align:center;margin-bottom:20px}
+.hero img{width:230px;height:230px;object-fit:cover;border-radius:50%;border:3px solid #d4af37}
+h1{font-family:"Playfair Display",serif;margin:15px 0;color:#8b5e3c}
+.subtitle{margin-bottom:10px}
+label{display:block;margin:16px 0 6px;font-weight:600}
+input,select,textarea{
+width:100%;padding:12px;border:none;border-radius:12px;background:#fff;
+}
+textarea{min-height:120px}
+.buttons{display:flex;gap:12px;flex-wrap:wrap;margin-top:25px}
+button{
+flex:1;padding:14px;border:none;border-radius:14px;cursor:pointer;
+background:#f7e6b1;color:rgb(0, 0, 0);font-weight:bold;
+}
+footer{text-align:center;margin-top:20px}
+</style>
+</head>
+<body>
+<div class="container">
+<div class="card">
+<div class="hero">
+<img src="nilza02.jpeg" alt="Nilza">
+<h1>Quem era Nilza Brisda Andrade Pra Você?</h1>
+<p class="subtitle">15/10/1955 • 27/05/2026</p>
+<p>Estamos construindo uma homenagem especial para Dona Nilza. Compartilhe suas lembranças, histórias e mensagens para preservar sua memória.</p>
+</div>
+
+<form id="form">
+<label>Seu nome</label><input id="nome" required>
+<label>Relação com Dona Nilza</label>
+
+<select id="relacao" required>
+    <option value="">Selecione...</option>
+
+    <optgroup label="Família">
+        <option>Filho</option>
+        <option>Filha</option>
+        <option>Neto</option>
+        <option>Neta</option>
+        <option>Bisneto</option>
+        <option>Bisneta</option>
+        <option>Irmão</option>
+        <option>Irmã</option>
+        <option>Sobrinho</option>
+        <option>Sobrinha</option>
+        <option>Parente</option>
+    </optgroup>
+
+    <optgroup label="Amigos e Conhecidos">
+        <option>Amigo(a)</option>
+        <option>Vizinho(a)</option>
+        <option>Compadre</option>
+        <option>Comadre</option>
+        <option>Colega de Trabalho</option>
+        <option>Conhecido(a)</option>
+    </optgroup>
+
+    <optgroup label="Outros">
+        <option>Outro</option>
+    </optgroup>
+
+</select>
+<label>Cidade</label><input id="cidade">
+
+<label>Como você descreveria Dona Nilza?</label><textarea id="q1"></textarea>
+<label>O que você mais admirava nela?</label><textarea id="q2"></textarea>
+<label>Qual era sua característica mais marcante?</label><textarea id="q3"></textarea>
+<label>O que ela ensinou para você?</label><textarea id="q4"></textarea>
+<label>O que Dona Nilza representava para você?</label><textarea id="q12"></textarea>
+<label>Conte uma história especial ou engraçada.</label><textarea id="q5"></textarea>
+<label>Qual foi o momento mais marcante que viveu com ela?</label><textarea id="q6"></textarea>
+<label>Existe alguma frase ou costume dela que você nunca esqueceu?</label><textarea id="q7"></textarea>
+<label>Qual a primeira lembrança que vem à sua mente?</label><textarea id="q8"></textarea>
+<label>Como gostaria que as futuras gerações se lembrassem dela?</label><textarea id="q9"></textarea>
+<label>Se pudesse resumir Dona Nilza em três palavras, quais seriam?</label><input type="text" id="q13"placeholder="Ex: Guerreira, amorosa e forte">
+<label>Mensagem especial</label><textarea id="q11"></textarea>
+
+
+
+<div class="buttons">
+<button type="button" onclick="gerarPDF()">📄 Gerar PDF</button>
+<button type="button" onclick="abrirWhats()">📱 WhatsApp</button>
+</div>
+</form>
+</div>
+
+<footer>
+<p><strong>Dona Nilza</strong></p>
+<p>❤️ Para Sempre em Nossos Corações ❤️</p>
+</footer>
+</div>
+
+<script>
+function abrirWhats(){
+window.open('https://wa.me/5564993286584','_blank');
+}
+
+async function gerarPDF(){
+const { jsPDF } = window.jspdf;
+const doc = new jsPDF();
+let y=20;
+
+const campos=[
+['Nome',nome.value],
+['Relação',relacao.value],
+['Cidade',cidade.value],
+['Como você descreveria Dona Nilza?',q1.value],
+['O que mais admirava nela?',q2.value],
+['Característica mais marcante',q3.value],
+['O que ela ensinou?',q4.value],
+['História especial',q5.value],
+['Momento mais marcante',q6.value],
+['Frase ou costume',q7.value],
+['Primeira lembrança',q8.value],
+['Como deve ser lembrada',q9.value],
+['Uma palavra',q10.value],
+['Mensagem especial',q11.value]
+];
+
+doc.setFontSize(18);
+doc.text('Homenagem a Nilza Brisda Andrade',10,y);
+y+=10;
+doc.setFontSize(11);
+doc.text('15/10/1955 - 27/05/2026',10,y);
+y+=10;
+
+campos.forEach(c=>{
+const texto=c[0]+': '+(c[1]||'');
+const linhas=doc.splitTextToSize(texto,180);
+if(y>260){doc.addPage();y=20;}
+doc.text(linhas,10,y);
+y+=linhas.length*7+4;
+});
+
+doc.save('Homenagem_'+(nome.value||'Participante')+'.pdf');
+}
+</script>
+</body>
+</html>
