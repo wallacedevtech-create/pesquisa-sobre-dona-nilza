@@ -116,48 +116,58 @@ footer{text-align:center;margin-top:20px}
 </div>
 
 <script>
-function abrirWhats(){
-window.open('https://wa.me/5564993286584','_blank');
-}
+async function gerarPDF() {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
 
-async function gerarPDF(){
-const { jsPDF } = window.jspdf;
-const doc = new jsPDF();
-let y=20;
+    let y = 20;
 
-const campos=[
-['Nome',nome.value],
-['Relação',relacao.value],
-['Cidade',cidade.value],
-['Como você descreveria Dona Nilza?',q1.value],
-['O que mais admirava nela?',q2.value],
-['Característica mais marcante',q3.value],
-['O que ela ensinou?',q4.value],
-['História especial',q5.value],
-['Momento mais marcante',q6.value],
-['Frase ou costume',q7.value],
-['Primeira lembrança',q8.value],
-['Como deve ser lembrada',q9.value],
-['Uma palavra',q10.value],
-['Mensagem especial',q11.value]
-];
+    const campos = [
+        ['Nome', document.getElementById('nome').value],
+        ['Relação', document.getElementById('relacao').value],
+        ['Cidade', document.getElementById('cidade').value],
+        ['Como você descreveria Dona Nilza?', document.getElementById('q1').value],
+        ['O que mais admirava nela?', document.getElementById('q2').value],
+        ['Característica mais marcante', document.getElementById('q3').value],
+        ['O que ela ensinou?', document.getElementById('q4').value],
+        ['O que Dona Nilza representava para você?', document.getElementById('q12').value],
+        ['História especial', document.getElementById('q5').value],
+        ['Momento mais marcante', document.getElementById('q6').value],
+        ['Frase ou costume inesquecível', document.getElementById('q7').value],
+        ['Primeira lembrança', document.getElementById('q8').value],
+        ['Como deve ser lembrada', document.getElementById('q9').value],
+        ['Três palavras', document.getElementById('q13').value],
+        ['Mensagem especial', document.getElementById('q11').value]
+    ];
 
-doc.setFontSize(18);
-doc.text('Homenagem a Nilza Brisda Andrade',10,y);
-y+=10;
-doc.setFontSize(11);
-doc.text('15/10/1955 - 27/05/2026',10,y);
-y+=10;
+    doc.setFontSize(18);
+    doc.text('Homenagem a Nilza Brisda Andrade', 10, y);
+    y += 10;
 
-campos.forEach(c=>{
-const texto=c[0]+': '+(c[1]||'');
-const linhas=doc.splitTextToSize(texto,180);
-if(y>260){doc.addPage();y=20;}
-doc.text(linhas,10,y);
-y+=linhas.length*7+4;
-});
+    doc.setFontSize(11);
+    doc.text('15/10/1955 - 27/05/2026', 10, y);
+    y += 15;
 
-doc.save('Homenagem_'+(nome.value||'Participante')+'.pdf');
+    campos.forEach(campo => {
+        const titulo = campo[0];
+        const valor = campo[1] || 'Não informado';
+
+        const texto = `${titulo}: ${valor}`;
+        const linhas = doc.splitTextToSize(texto, 180);
+
+        if (y + (linhas.length * 7) > 280) {
+            doc.addPage();
+            y = 20;
+        }
+
+        doc.text(linhas, 10, y);
+        y += (linhas.length * 7) + 5;
+    });
+
+    const nomeParticipante =
+        document.getElementById('nome').value.trim() || 'Participante';
+
+    doc.save(`Homenagem_${nomeParticipante}.pdf`);
 }
 </script>
 </body>
